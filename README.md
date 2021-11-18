@@ -14,7 +14,7 @@ it's easy and intuitive.
 - You need at least Java 8.
 
 ## Installation
-Download the plugin from [here](https://google.com) and put it in your plugins folder.
+Download the plugin from [here](https://www.spigotmc.org/resources/customf3brand-edit-your-server-brand-in-f3.97713/) and put it in your plugins folder.
 If you are installing this plugin in a Spigot server download also [ProtocolLib](https://www.spigotmc.org/resources/protocollib.1997/);
 Start the server and configure the config as you like then restart the server or type the command:
 - ```f3r``` for Spigot
