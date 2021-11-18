@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>it.multicoredev.f3</groupId>
+    <artifactId>CustomF3Brand</artifactId>
+    <version>1.0</version>
+    <packaging>jar</packaging>
+
+    <name>CustomF3Brand</name>
+    <description>Edit your server brand in debug screen</description>
+    <url>https://github.com/LoreSchaeffer/CustomF3Brand</url>
+    <inceptionYear>2021</inceptionYear>
+
+    <properties>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    </properties>
+
+    <organization>
+        <name>MultiCore Network</name>
+        <url>https://multicore.network</url>
+    </organization>
+
+    <licenses>
+        <license>
+            <name>The BSD 3-Clause License</name>
+            <url>http://opensource.org/licenses/BSD-3-Clause</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <id>LoreSchaeffer</id>
+            <name>Lorenzo Magni</name>
+            <url>https://github.com/LoreSchaeffer</url>
+        </developer>
+    </developers>
+
+    <repositories>
+        <repository>
+            <id>spigot-repo</id>
+            <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
+        </repository>
+        <repository>
+            <id>sonatype</id>
+            <url>https://oss.sonatype.org/content/groups/public/</url>
+        </repository>
+        <repository>
+            <id>placeholderapi</id>
+            <url>https://repo.extendedclip.com/content/repositories/placeholderapi/</url>
+        </repository>
+        <repository>
+            <id>dmulloy2-repo</id>
+            <url>https://repo.dmulloy2.net/repository/public/</url>
+        </repository>
+    </repositories>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.spigotmc</groupId>
+            <artifactId>spigot-api</artifactId>
+            <version>1.17.1-R0.1-SNAPSHOT</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.md-5</groupId>
+            <artifactId>bungeecord-api</artifactId>
+            <version>1.17-R0.1-SNAPSHOT</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>it.multicoredev.mbcore.bungeecord</groupId>
+            <artifactId>MBCore-bungeecord</artifactId>
+            <version>7.5.2</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>it.multicoredev.mbcore.spigot</groupId>
+            <artifactId>MBCore-spigot</artifactId>
+            <version>7.5.2</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>it.multicoredev.mclib</groupId>
+            <artifactId>MCLib-Configurations</artifactId>
+            <version>1.7.0.2</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.comphenix.protocol</groupId>
+            <artifactId>ProtocolLib</artifactId>
+            <version>4.7.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>me.clip</groupId>
+            <artifactId>placeholderapi</artifactId>
+            <version>2.10.10</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+                <includes>
+                    <include>**/*.yml</include>
+                </includes>
+            </resource>
+        </resources>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.2.1</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <finalName>CustomF3Brand</finalName>
+                            <minimizeJar>false</minimizeJar>
+                            <createDependencyReducedPom>false</createDependencyReducedPom>
+                            <relocations>
+                                <relocation>
+                                    <pattern>it.multicoredev.mbcore</pattern>
+                                    <shadedPattern>it.multicoredev.f3.mbcore</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>it.multicoredev.mbcore</pattern>
+                                    <shadedPattern>it.multicoredev.f3.mclib</shadedPattern>
+                                </relocation>
+                            </relocations>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>

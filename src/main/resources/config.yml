@@ -1,0 +1,35 @@
+# You can set your brand message. This can be an array of made of a single string to make it static or can be a list of
+# strings to create an animation or make it change with a specified period.
+# These strings can contain Chat color codes (Hexadecimal values are not supported) and can contain tags that will be replaced
+# automatically by the plugin; these tags are:
+# {name} - replaced with the player's name
+# {displayname} - replaced with te player's display name
+# {server} - replaced with the name of player's the server (ONLY BUNGEECORD)
+# {spigot} - replaced with the spigot one (ONLY BUNGEECORD)
+# Any placeholder by PlaceholderAPI (ONLY SPIGOT)
+f3-brand:
+  - "&6MyServer"
+  - "&eM&6yServer"
+  - "&fM&ey&6Server"
+  - "&eM&fy&eS&6erver"
+  - "&6M&ey&fS&ee&6rver"
+  - "&6My&eS&fe&er&6ver"
+  - "&6MyS&ee&fr&ev&6er"
+  - "&6MySe&er&fv&ee&6r"
+  - "&6MySer&ev&fe&er"
+  - "&6MyServ&ee&fr"
+  - "&6MyServe&er"
+  - "&6MyServer"
+  - "&6MyServe&er"
+  - "&6MyServ&ee&fr"
+  - "&6MySer&ev&fe&er"
+  - "&6MySe&er&fv&ee&6r"
+  - "&6MyS&ee&fr&ev&6er"
+  - "&6My&eS&fe&er&6ver"
+  - "&6M&ey&fS&ee&6rver"
+  - "&eM&fy&eS&6erver"
+  - "&fM&ey&6Server"
+  - "&eM&6yServer"
+
+# Update period expressed in milliseconds
+update-period: 50

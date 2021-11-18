@@ -1,0 +1,5 @@
+name: '${project.name}'
+version: '${project.version}'
+main: it.multicoredev.f3.bungee.CustomF3Brand
+author: LoreSchaeffer
+description: Edit your server brand in debug screen
