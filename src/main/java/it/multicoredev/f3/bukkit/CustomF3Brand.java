@@ -4,6 +4,7 @@ import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.ProtocolManager;
 import it.multicoredev.mbcore.spigot.Chat;
 import it.multicoredev.mclib.yaml.Configuration;
+import org.bstats.bukkit.Metrics;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
@@ -31,6 +32,8 @@ import java.io.IOException;
  */
 public class CustomF3Brand extends JavaPlugin {
     public static final String BRAND = "minecraft:brand";
+    private static final int PLUGIN_ID = 13359;
+    private final Metrics metrics = new Metrics(this, PLUGIN_ID);
     private final Configuration config = new Configuration(new File(getDataFolder(), "config.yml"), getResource("config.yml"));
     public static boolean PAPI;
     private BrandUpdater brandUpdater;

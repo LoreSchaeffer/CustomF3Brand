@@ -25,7 +25,6 @@ import org.bukkit.entity.Player;
  */
 public class PlaceholderUtils {
     public static String replacePlaceholders(String msg, Player player) {
-
         return PlaceholderAPI.setPlaceholders(player, msg);
     }
 }

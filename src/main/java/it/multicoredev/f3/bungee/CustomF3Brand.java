@@ -10,6 +10,7 @@ import net.md_5.bungee.api.plugin.Listener;
 import net.md_5.bungee.api.plugin.Plugin;
 import net.md_5.bungee.event.EventHandler;
 import net.md_5.bungee.protocol.DefinedPacket;
+import org.bstats.bungeecord.Metrics;
 
 import java.io.File;
 import java.io.IOException;
@@ -37,6 +38,8 @@ import java.nio.charset.StandardCharsets;
  */
 public class CustomF3Brand extends Plugin implements Listener {
     public static final String BRAND = "minecraft:brand";
+    private static final int PLUGIN_ID = 13360;
+    private final Metrics metrics = new Metrics(this, PLUGIN_ID);
     private final Configuration config = new Configuration(new File(getDataFolder(), "config.yml"), getResourceAsStream("config.yml"));
     private BrandUpdater brandUpdater;
 
