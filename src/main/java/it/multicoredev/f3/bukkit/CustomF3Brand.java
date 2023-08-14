@@ -2,8 +2,9 @@ package it.multicoredev.f3.bukkit;
 
 import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.ProtocolManager;
+import it.multicoredev.f3.Config;
 import it.multicoredev.mbcore.spigot.Chat;
-import it.multicoredev.mclib.yaml.Configuration;
+import it.multicoredev.mclib.json.GsonHelper;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -33,8 +34,9 @@ import java.io.IOException;
 public class CustomF3Brand extends JavaPlugin {
     public static final String BRAND = "minecraft:brand";
     private static final int PLUGIN_ID = 13359;
+    private static final GsonHelper GSON = new GsonHelper();
     private final Metrics metrics = new Metrics(this, PLUGIN_ID);
-    private final Configuration config = new Configuration(new File(getDataFolder(), "config.yml"), getResource("config.yml"));
+    private Config config;
     public static boolean PAPI;
     private BrandUpdater brandUpdater;
 
@@ -49,7 +51,8 @@ public class CustomF3Brand extends JavaPlugin {
         }
 
         try {
-            config.autoload();
+            File configFile = new File(getDataFolder(), "config.json");
+            config = GSON.autoload(configFile, new Config().init(), Config.class);
         } catch (IOException e) {
             Chat.severe(e.getMessage());
             onDisable();
@@ -64,8 +67,8 @@ public class CustomF3Brand extends JavaPlugin {
 
         try {
             brandUpdater = new BrandUpdater(
-                    config.getStringList("f3-brand"),
-                    config.getLong("update-period"),
+                    config.f3Brand,
+                    config.updatePeriod,
                     manager);
         } catch (ClassNotFoundException e) {
             Chat.severe(e.getMessage());

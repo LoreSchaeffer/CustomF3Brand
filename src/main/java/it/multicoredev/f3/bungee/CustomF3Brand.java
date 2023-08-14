@@ -2,8 +2,9 @@ package it.multicoredev.f3.bungee;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
+import it.multicoredev.f3.Config;
 import it.multicoredev.mbcore.bungeecord.Chat;
-import it.multicoredev.mclib.yaml.Configuration;
+import it.multicoredev.mclib.json.GsonHelper;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.event.PluginMessageEvent;
 import net.md_5.bungee.api.plugin.Listener;
@@ -39,8 +40,9 @@ import java.nio.charset.StandardCharsets;
 public class CustomF3Brand extends Plugin implements Listener {
     public static final String BRAND = "minecraft:brand";
     private static final int PLUGIN_ID = 13360;
+    private static final GsonHelper GSON = new GsonHelper();
     private final Metrics metrics = new Metrics(this, PLUGIN_ID);
-    private final Configuration config = new Configuration(new File(getDataFolder(), "config.yml"), getResourceAsStream("config.yml"));
+    private Config config;
     private BrandUpdater brandUpdater;
 
     @Override
@@ -54,7 +56,8 @@ public class CustomF3Brand extends Plugin implements Listener {
         }
 
         try {
-            config.autoload();
+            File configFile = new File(getDataFolder(), "config.json");
+            config = GSON.autoload(configFile, new Config().init(), Config.class);
         } catch (IOException e) {
             Chat.severe(e.getMessage());
             onDisable();
@@ -64,7 +67,7 @@ public class CustomF3Brand extends Plugin implements Listener {
         getProxy().getPluginManager().registerCommand(this, new ReloadCmd(this));
         getProxy().getPluginManager().registerListener(this, this);
 
-        brandUpdater = new BrandUpdater(this, config.getStringList("f3-brand"), config.getLong("update-period"));
+        brandUpdater = new BrandUpdater(this, config.f3Brand, config.updatePeriod);
 
         if (brandUpdater.size() > 0) brandUpdater.broadcast();
         if (brandUpdater.size() > 1) brandUpdater.start();
