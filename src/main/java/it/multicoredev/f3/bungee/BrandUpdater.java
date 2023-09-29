@@ -62,13 +62,15 @@ public class BrandUpdater {
     }
 
     public void send(ProxiedPlayer player, String spigotBrand) {
-        this.spigotBrand = spigotBrand;
+        if (player == null) return;
+        if (spigotBrand != null) this.spigotBrand = spigotBrand;
 
         String str = brand.get(index)
                 .replace("{server}", getServer(player))
                 .replace("{name}", player.getName())
                 .replace("{displayname}", player.getDisplayName())
                 .replace("{spigot}", spigotBrand != null ? spigotBrand : "");
+
         player.sendData(BRAND, createData(str));
     }
 

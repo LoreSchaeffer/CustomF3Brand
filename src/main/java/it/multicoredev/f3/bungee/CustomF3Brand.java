@@ -1,6 +1,7 @@
 package it.multicoredev.f3.bungee;
 
 import io.netty.buffer.ByteBuf;
+import io.netty.buffer.ByteBufAllocator;
 import io.netty.buffer.Unpooled;
 import it.multicoredev.f3.Config;
 import it.multicoredev.mbcore.bungeecord.Chat;
@@ -15,7 +16,6 @@ import org.bstats.bungeecord.Metrics;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 
 /**
  * Copyright © 2021 by Lorenzo Magni
@@ -85,16 +85,19 @@ public class CustomF3Brand extends Plugin implements Listener {
             event.setCancelled(true);
 
             ByteBuf buf = Unpooled.wrappedBuffer(event.getData());
-            buf.readByte();
-            String spigotBrand = buf.readCharSequence(buf.readableBytes(), StandardCharsets.UTF_8).toString();
+            String brand = DefinedPacket.readString(buf);
+            buf.release();
 
-            brandUpdater.send((ProxiedPlayer) event.getReceiver(), spigotBrand);
+            brandUpdater.send((ProxiedPlayer) event.getReceiver(), brand);
         }
     }
 
     public static byte[] createData(String str) {
-        ByteBuf buf = Unpooled.buffer();
-        DefinedPacket.writeString(Chat.getTranslated(str + "&r"), buf);
-        return buf.array();
+        ByteBuf brand = Unpooled.buffer();
+        DefinedPacket.writeString(Chat.getTranslated(str), brand);
+        byte[] data = DefinedPacket.toArray(brand);
+        brand.release();
+
+        return data;
     }
 }

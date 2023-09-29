@@ -85,7 +85,11 @@ public class BrandUpdater {
 
         WirePacket customPacket = new WirePacket(PacketType.Play.Server.CUSTOM_PAYLOAD, data);
 
-        manager.sendWirePacket(player, customPacket);
+        try {
+            manager.sendWirePacket(player, customPacket);
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
     }
 
     private Object getPacketDataSerializer() {
