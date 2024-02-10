@@ -185,15 +185,15 @@
                             <relocations>
                                 <relocation>
                                     <pattern>it.multicoredev.mbcore</pattern>
-                                    <shadedPattern>it.multicoredev.f3.mbcore</shadedPattern>
+                                    <shadedPattern>it.multicoredev.cf3b.mbcore</shadedPattern>
                                 </relocation>
                                 <relocation>
                                     <pattern>it.multicoredev.mclib</pattern>
-                                    <shadedPattern>it.multicoredev.f3.mclib</shadedPattern>
+                                    <shadedPattern>it.multicoredev.cf3b.mclib</shadedPattern>
                                 </relocation>
                                 <relocation>
                                     <pattern>org.bstats</pattern>
-                                    <shadedPattern>it.multicoredev.f3.bstats</shadedPattern>
+                                    <shadedPattern>it.multicoredev.cf3b.bstats</shadedPattern>
                                 </relocation>
                             </relocations>
                         </configuration>
