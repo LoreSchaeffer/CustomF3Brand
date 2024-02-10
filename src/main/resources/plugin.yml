@@ -1,6 +1,6 @@
-name: '${project.name}'
+name: CustomF3Brand
 version: '${project.version}'
-main: it.multicoredev.f3.bukkit.CustomF3Brand
+main: it.multicoredev.cf3b.bukkit.CustomF3Brand
 api-version: 1.13
 author: LoreSchaeffer
 description: Edit your server brand in debug screen

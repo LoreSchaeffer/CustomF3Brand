@@ -1,4 +1,4 @@
-package it.multicoredev.f3;
+package it.multicoredev.cf3b;
 
 import com.google.gson.annotations.SerializedName;
 import it.multicoredev.mclib.json.JsonConfig;
@@ -56,40 +56,40 @@ public class Config extends JsonConfig {
     public Config init() {
         _comment1 = "You can set your brand message. This can be an array of made of a single string to make it static or can be a list of";
         _comment2 = "strings to create an animation or make it change with a specified period.";
-        _comment3 = "These strings can contain Chat color codes (Hexadecimal values are not supported) and can contain tags that will be replaced";
-        _comment4 = "automatically by the plugin; these tags are:";
+        _comment3 = "To format the messages use MiniMessage (https://docs.advntr.dev/minimessage/format.html) (You can also use legacy text color codes, but it's not suggested). Warning! Hexadecimal coloros are not supported!";
+        _comment4 = "There are some tags that will be automatically replaced by the plugin. These tags are:";
         _comment5 = "{name} - replaced with the player's name";
         _comment6 = "{displayname} - replaced with te player's display name";
-        _comment7 = "{server} - replaced with the name of player's the server (ONLY BUNGEECORD)";
-        _comment8 = "{spigot} - replaced with the spigot one (ONLY BUNGEECORD)";
+        _comment7 = "{server} - replaced with the name of player's the server (ONLY BUNGEECORD/VELOCITY)";
+        _comment8 = "{spigot} - replaced with the spigot brand (ONLY BUNGEECORD/VELOCITY)";
         _comment9 = "Any placeholder by PlaceholderAPI (ONLY SPIGOT)";
 
         if (f3Brand == null) f3Brand = List.of(
-                "&6MyServer",
-                "&eM&6yServer",
-                "&fM&ey&6Server",
-                "&eM&fy&eS&6erver",
-                "&6M&ey&fS&ee&6rver",
-                "&6My&eS&fe&er&6ver",
-                "&6MyS&ee&fr&ev&6er",
-                "&6MySe&er&fv&ee&6r",
-                "&6MySer&ev&fe&er",
-                "&6MyServ&ee&fr",
-                "&6MyServe&er",
-                "&6MyServer",
-                "&6MyServe&er",
-                "&6MyServ&ee&fr",
-                "&6MySer&ev&fe&er",
-                "&6MySe&er&fv&ee&6r",
-                "&6MyS&ee&fr&ev&6er",
-                "&6My&eS&fe&er&6ver",
-                "&6M&ey&fS&ee&6rver",
-                "&eM&fy&eS&6erver",
-                "&fM&ey&6Server",
-                "&eM&6yServer"
+                "<gold>MyServer</gold>",
+                "<yellow>M</yellow><gold>yServer</gold>",
+                "<white>M</white><yellow>y</yellow><gold>Server</gold>",
+                "<yellow>M</yellow><white>y</white><yellow>S</yellow><gold>erver</gold>",
+                "<gold>M<yellow>y<white>S<yellow>e<gold>rver",
+                "<gold>My<yellow>S<white>e<yellow>r<gold>ver",
+                "<gold>MyS<yellow>e<white>r<yellow>v<gold>er",
+                "<gold>MySe<yellow>r<white>v<yellow>e<gold>r",
+                "<gold>MySer<yellow>v<white>e<yellow>r",
+                "<gold>MyServ<yellow>e<white>r",
+                "<gold>MyServe<yellow>r",
+                "<gold>MyServer",
+                "<gold>MyServe<yellow>r",
+                "<gold>MyServ<yellow>e<white>r",
+                "<gold>MySer<yellow>v<white>e<yellow>r",
+                "<gold>MySe<yellow>r<white>v<yellow>e<gold>r",
+                "<gold>MyS<yellow>e<white>r<yellow>v<gold>er",
+                "<gold>My<yellow>S<white>e<yellow>r<gold>ver",
+                "<gold>M<yellow>y<white>S<yellow>e<gold>rver",
+                "<yellow>M<white>y<yellow>S<gold>erver",
+                "<white>M<yellow>y<gold>Server",
+                "<yellow>M<gold>yServer"
         );
 
-        if (updatePeriod == null || updatePeriod < 1) updatePeriod = 50L;
+        if (updatePeriod == null || updatePeriod < 1) updatePeriod = 100L;
         return this;
     }
 }

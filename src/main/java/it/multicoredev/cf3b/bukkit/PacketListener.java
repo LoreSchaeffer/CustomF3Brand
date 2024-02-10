@@ -1,4 +1,4 @@
-package it.multicoredev.f3.bukkit;
+package it.multicoredev.cf3b.bukkit;
 
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.ListenerPriority;
@@ -35,7 +35,7 @@ public class PacketListener extends PacketAdapter {
     private String def = null;
 
     public PacketListener(CustomF3Brand plugin, BrandUpdater updater) {
-        super(plugin, ListenerPriority.LOW, PacketType.Play.Server.CUSTOM_PAYLOAD);
+        super(plugin, ListenerPriority.HIGHEST, PacketType.Play.Server.CUSTOM_PAYLOAD);
         this.updater = updater;
     }
 
@@ -43,16 +43,19 @@ public class PacketListener extends PacketAdapter {
     public void onPacketSending(PacketEvent event) {
         PacketContainer packet = event.getPacket();
 
-        MinecraftKey channel = packet.getMinecraftKeys().read(0);
-        if (channel.getFullKey().equals(CustomF3Brand.BRAND)) {
-            event.setCancelled(true);
+        try {
+            MinecraftKey channel = packet.getMinecraftKeys().read(0);
+            if (channel.getFullKey().equals(CustomF3Brand.BRAND)) {
+                event.setCancelled(true);
 
-            ByteBuf buf = ((ByteBuf) packet.getModifier().read(1));
-            String name = buf.readCharSequence(buf.readableBytes(), StandardCharsets.UTF_8).toString();
-            if (def == null) def = name;
-            if (!def.equals(name)) return;
+                ByteBuf buf = ((ByteBuf) packet.getModifier().read(1));
+                String name = buf.readCharSequence(buf.readableBytes(), StandardCharsets.UTF_8).toString();
+                if (def == null) def = name;
+                if (!def.equals(name)) return;
 
-            updater.send(event.getPlayer());
+                updater.send(event.getPlayer());
+            }
+        } catch (Throwable ignored) {
         }
     }
 }

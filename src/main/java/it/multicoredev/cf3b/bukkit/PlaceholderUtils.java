@@ -1,15 +1,12 @@
-package it.multicoredev.f3.bukkit;
+package it.multicoredev.cf3b.bukkit;
 
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
-import org.bukkit.command.CommandSender;
-import org.bukkit.plugin.Plugin;
-import org.jetbrains.annotations.NotNull;
+import me.clip.placeholderapi.PlaceholderAPI;
+import org.bukkit.entity.Player;
 
 /**
  * Copyright © 2021 by Lorenzo Magni
- * This file is part of CustomF3Brand.
- * CustomF3Brand is under "The 3-Clause BSD License", you can find a copy <a href="https://opensource.org/licenses/BSD-3-Clause">here</a>.
+ * This file is part of CustomFBrand.
+ * CustomFBrand is under "The 3-Clause BSD License", you can find a copy <a href="https://opensource.org/licenses/BSD-3-Clause">here</a>.
  * <p>
  * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
  * 1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
@@ -26,17 +23,8 @@ import org.jetbrains.annotations.NotNull;
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
  * THE POSSIBILITY OF SUCH DAMAGE.
  */
-public class ReloadCmd implements CommandExecutor {
-    private final Plugin plugin;
-
-    public ReloadCmd(Plugin plugin) {
-        this.plugin = plugin;
-    }
-
-    @Override
-    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-        plugin.onDisable();
-        plugin.onEnable();
-        return true;
+public class PlaceholderUtils {
+    public static String replacePlaceholders(String msg, Player player) {
+        return PlaceholderAPI.setPlaceholders(player, msg);
     }
 }

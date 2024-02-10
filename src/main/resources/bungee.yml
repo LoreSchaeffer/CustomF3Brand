@@ -1,5 +1,5 @@
-name: '${project.name}'
+name: CustomF3Brand
 version: '${project.version}'
-main: it.multicoredev.f3.bungee.CustomF3Brand
+main: it.multicoredev.cf3b.bungee.CustomF3Brand
 author: LoreSchaeffer
 description: Edit your server brand in debug screen

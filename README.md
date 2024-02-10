@@ -1,4 +1,4 @@
-# Custom F3 Brand [![Build Status](https://multicoredev.it/buildStatus/icon?job=CustomF3Brand)](https://multicoredev.it/job/CustomF3Brand/)
+# Custom F3 Brand
 
 ### Edit your server name in debug screen!
 #### It's simple, it's powerful, it's fully customizable!
@@ -9,17 +9,25 @@ it's easy and intuitive.
 - [x] Spigot version
     - PlaceholderAPI support
 - [x] Bungeecord version
+- [x] Velocity version
+  - Velocity version is in alpha stage, please report any issue you find.
 
 ## Requirements
-- You need at least Java 8.
+- You need at least Java 16.
+- ProtocolLib is required for the Spigot version.
 
 ## Installation
-Download the plugin from [here](https://www.spigotmc.org/resources/customf3brand-edit-your-server-brand-in-f3.97713/) and put it in your plugins folder.
+Download the plugin from [here](https://modrinth.com/plugin/customf3brand) and put it in your plugins folder.
 If you are installing this plugin in a Spigot server download also [ProtocolLib](https://www.spigotmc.org/resources/protocollib.1997/);
-Start the server and configure the config as you like then restart the server or type the command:
-- ```f3r``` for Spigot
-- ```bf3r``` for BungeeCord
 That's it!
+
+## Commands
+- ```/f3r``` to reload the config (spigot)
+- ```/bf3r``` to reload the config (bungeecord)
+- ```/vf3r``` to reload the config (velocity)
+
+## Permissions
+- ```f3b.reload``` to reload the config
 
 ## Contributing
 To contribute to this repository just fork this repository make your changes or add your code and make a pull request.
