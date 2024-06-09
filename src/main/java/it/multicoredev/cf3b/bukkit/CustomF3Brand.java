@@ -3,8 +3,8 @@ package it.multicoredev.cf3b.bukkit;
 import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.ProtocolManager;
 import it.multicoredev.cf3b.Config;
+import it.multicoredev.cf3b.bukkit.test.PluginTest;
 import it.multicoredev.mbcore.spigot.Text;
-import it.multicoredev.mclib.json.GsonHelper;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -44,7 +44,6 @@ import java.io.IOException;
 public class CustomF3Brand extends JavaPlugin {
     public static final String BRAND = "minecraft:brand";
     private static final int PLUGIN_ID = 13359;
-    private static final GsonHelper GSON = new GsonHelper();
     private final Metrics metrics = new Metrics(this, PLUGIN_ID);
     private Config config;
     public static boolean PAPI;
@@ -63,8 +62,15 @@ public class CustomF3Brand extends JavaPlugin {
         }
 
         try {
-            File configFile = new File(getDataFolder(), "config.json");
-            config = GSON.autoload(configFile, new Config().init(), Config.class);
+            File file = new File(getDataFolder(), "config.json5");
+            if (!file.exists() || !file.isFile()) {
+                config = new Config(file);
+                config.init();
+                config.save();
+            } else {
+                config = Config.load(file);
+                if (config.init()) config.save();
+            }
         } catch (IOException e) {
             getLogger().severe("Cannot load config file: " + e.getMessage());
             onDisable();
@@ -94,6 +100,10 @@ public class CustomF3Brand extends JavaPlugin {
 
         if (brandUpdater.size() > 0) brandUpdater.broadcast();
         if (brandUpdater.size() > 1) brandUpdater.start();
+
+        if (config.debug) {
+            new PluginTest(this).init();
+        }
     }
 
     @Override

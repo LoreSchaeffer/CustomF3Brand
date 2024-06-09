@@ -15,7 +15,6 @@ import com.velocitypowered.proxy.VelocityServer;
 import com.velocitypowered.proxy.network.ConnectionManager;
 import it.multicoredev.cf3b.Config;
 import it.multicoredev.mbcore.velocity.Text;
-import it.multicoredev.mclib.json.GsonHelper;
 import org.bstats.velocity.Metrics;
 import org.slf4j.Logger;
 
@@ -66,7 +65,6 @@ import java.nio.file.Path;
 public class CustomF3Brand {
     public static final MinecraftChannelIdentifier BRAND = MinecraftChannelIdentifier.create("minecraft", "brand");
     private static final int PLUGIN_ID = 20959;
-    private static final GsonHelper GSON = new GsonHelper();
     private final ProxyServer proxy;
     private final Logger logger;
     private final Metrics.Factory metricsFactory;
@@ -114,14 +112,19 @@ public class CustomF3Brand {
 
     public void load() {
         try {
-            if (!Files.exists(dataDirectory)) {
-                Files.createDirectories(dataDirectory);
-            }
+            if (!Files.exists(dataDirectory)) Files.createDirectories(dataDirectory);
 
-            File configFile = new File(dataDirectory.toFile(), "config.json");
-            config = GSON.autoload(configFile, new Config().init(), Config.class);
+            File file = new File(dataDirectory.toFile(), "config.json5");
+            if (!file.exists() || !file.isFile()) {
+                config = new Config(file);
+                config.init();
+                config.save();
+            } else {
+                config = Config.load(file);
+                if (config.init()) config.save();
+            }
         } catch (IOException e) {
-            logger.error("Cannot load config file: " + e.getMessage());
+            logger.error("Cannot load config file: {}", e.getMessage());
             unload();
             return;
         }
@@ -155,7 +158,7 @@ public class CustomF3Brand {
                     this
             ));
         } catch (Throwable t) {
-            logger.error("Cannot inject packet listener: " + t.getMessage());
+            logger.error("Cannot inject packet listener: {}", t.getMessage());
         }
     }
 }

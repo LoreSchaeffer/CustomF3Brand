@@ -1,14 +1,17 @@
 package it.multicoredev.cf3b;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
-import it.multicoredev.mclib.json.JsonConfig;
 
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 /**
  * BSD 3-Clause License
  * <p>
- * Copyright (c) 2023, Lorenzo Magni
+ * Copyright (c) 2021 - 2024, Lorenzo Magni
  * <p>
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -35,61 +38,144 @@ import java.util.List;
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-public class Config extends JsonConfig {
-    private String _comment1;
-    private String _comment2;
-    private String _comment3;
-    private String _comment4;
-    private String _comment5;
-    private String _comment6;
-    private String _comment7;
-    private String _comment8;
-    private String _comment9;
+public class Config {
+    private static final List<String> COMMENT = List.of(
+            "Change the brand message of your server!",
+            "You can set a static text (if the list contains a single string) or animated text (if the list contains more strings).",
+            "To format the message use the MiniMessage format (https://docs.advntr.dev/minimessage/format.html).",
+            "(You could also use legacy text color codes, but it's strongly discouraged).",
+            "Warning! Hexadecimal colors are not supported due to Minecraft limitations.",
+            "",
+            "You can also set the update period of the brand message to make a more or less smooth animation.",
+            "Lower values of the update period will make the animation faster. The default value is 100.",
+            "Lower values of the update period means that a lot more packets will be sent to each player, so be careful with this value.",
+            "",
+            "This plugin also support some placeholders that will be automatically replaced by the plugin with the correct value:",
+            "  {name} - replaced with the player's name",
+            "  {displayname} - replaced with the player's display name (Velocity does not have displayname so it will fallback to name)",
+            "  {server} - replaced with the name of the player (Bungeecord/Velocity only)",
+            "  {spigot} - replaced with the spigot brand (Bungeecord/Velocity only)",
+            "",
+            "If you are using the plugin on a Spigot or fork server, you can also use PlaceholderAPI placeholders.",
+            "",
+            "Don't change the debug value unless you know what you are doing."
+    );
 
     @SerializedName("f3_brand")
     public List<String> f3Brand;
+    private static final List<String> f3BrandDef = List.of(
+            "<gold>MyServer</gold>",
+            "<yellow>M</yellow><gold>yServer</gold>",
+            "<white>M</white><yellow>y</yellow><gold>Server</gold>",
+            "<yellow>M</yellow><white>y</white><yellow>S</yellow><gold>erver</gold>",
+            "<gold>M<yellow>y<white>S<yellow>e<gold>rver",
+            "<gold>My<yellow>S<white>e<yellow>r<gold>ver",
+            "<gold>MyS<yellow>e<white>r<yellow>v<gold>er",
+            "<gold>MySe<yellow>r<white>v<yellow>e<gold>r",
+            "<gold>MySer<yellow>v<white>e<yellow>r",
+            "<gold>MyServ<yellow>e<white>r",
+            "<gold>MyServe<yellow>r",
+            "<gold>MyServer",
+            "<gold>MyServe<yellow>r",
+            "<gold>MyServ<yellow>e<white>r",
+            "<gold>MySer<yellow>v<white>e<yellow>r",
+            "<gold>MySe<yellow>r<white>v<yellow>e<gold>r",
+            "<gold>MyS<yellow>e<white>r<yellow>v<gold>er",
+            "<gold>My<yellow>S<white>e<yellow>r<gold>ver",
+            "<gold>M<yellow>y<white>S<yellow>e<gold>rver",
+            "<yellow>M<white>y<yellow>S<gold>erver",
+            "<white>M<yellow>y<gold>Server",
+            "<yellow>M<gold>yServer"
+    );
+
     @SerializedName("update_period")
     public Long updatePeriod;
+    private static final Long updatePeriodDef = 100L;
 
+    @SerializedName("debug")
+    public Boolean debug;
+    private static final boolean debugDef = false;
 
-    @Override
-    public Config init() {
-        _comment1 = "You can set your brand message. This can be an array of made of a single string to make it static or can be a list of";
-        _comment2 = "strings to create an animation or make it change with a specified period.";
-        _comment3 = "To format the messages use MiniMessage (https://docs.advntr.dev/minimessage/format.html) (You can also use legacy text color codes, but it's not suggested). Warning! Hexadecimal coloros are not supported!";
-        _comment4 = "There are some tags that will be automatically replaced by the plugin. These tags are:";
-        _comment5 = "{name} - replaced with the player's name";
-        _comment6 = "{displayname} - replaced with te player's display name";
-        _comment7 = "{server} - replaced with the name of player's the server (ONLY BUNGEECORD/VELOCITY)";
-        _comment8 = "{spigot} - replaced with the spigot brand (ONLY BUNGEECORD/VELOCITY)";
-        _comment9 = "Any placeholder by PlaceholderAPI (ONLY SPIGOT)";
+    private static final Gson GSON = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
+    private transient File file;
 
-        if (f3Brand == null) f3Brand = List.of(
-                "<gold>MyServer</gold>",
-                "<yellow>M</yellow><gold>yServer</gold>",
-                "<white>M</white><yellow>y</yellow><gold>Server</gold>",
-                "<yellow>M</yellow><white>y</white><yellow>S</yellow><gold>erver</gold>",
-                "<gold>M<yellow>y<white>S<yellow>e<gold>rver",
-                "<gold>My<yellow>S<white>e<yellow>r<gold>ver",
-                "<gold>MyS<yellow>e<white>r<yellow>v<gold>er",
-                "<gold>MySe<yellow>r<white>v<yellow>e<gold>r",
-                "<gold>MySer<yellow>v<white>e<yellow>r",
-                "<gold>MyServ<yellow>e<white>r",
-                "<gold>MyServe<yellow>r",
-                "<gold>MyServer",
-                "<gold>MyServe<yellow>r",
-                "<gold>MyServ<yellow>e<white>r",
-                "<gold>MySer<yellow>v<white>e<yellow>r",
-                "<gold>MySe<yellow>r<white>v<yellow>e<gold>r",
-                "<gold>MyS<yellow>e<white>r<yellow>v<gold>er",
-                "<gold>My<yellow>S<white>e<yellow>r<gold>ver",
-                "<gold>M<yellow>y<white>S<yellow>e<gold>rver",
-                "<yellow>M<white>y<yellow>S<gold>erver",
-                "<white>M<yellow>y<gold>Server",
-                "<yellow>M<gold>yServer"
-        );
+    private Config() {
+    }
 
-        if (updatePeriod == null || updatePeriod < 1) updatePeriod = 100L;
-        return this;
+    public Config(File file) {
+        this.file = file;
+    }
+
+    public static Config load(File file) throws IOException {
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8))) {
+            StringBuilder json = new StringBuilder();
+            String line;
+
+            boolean multiLineComment = false;
+
+            while ((line = reader.readLine()) != null) {
+                if (line.contains("/*")) {
+                    multiLineComment = true;
+
+                    line = line.substring(0, line.indexOf("/*"));
+                    if (!line.isBlank()) json.append(line);
+                }
+
+                if (!multiLineComment && line.contains("//")) {
+                    line = line.substring(0, line.indexOf("//"));
+                    if (!line.isBlank()) json.append(line);
+                }
+
+                if (multiLineComment) {
+                    if (line.contains("*/")) {
+                        multiLineComment = false;
+
+                        line = line.substring(line.indexOf("*/") + 2);
+                        if (!line.isBlank()) json.append(line);
+                    } else {
+                        continue;
+                    }
+                }
+
+                if (!line.isBlank()) json.append(line);
+            }
+
+            Config config = GSON.fromJson(json.toString(), Config.class);
+            config.file = file;
+
+            return config;
+        }
+    }
+
+    public boolean init() {
+        boolean changed = false;
+
+        if (f3Brand == null) {
+            f3Brand = f3BrandDef;
+            changed = true;
+        }
+
+        if (updatePeriod == null) {
+            updatePeriod = updatePeriodDef;
+            changed = true;
+        }
+
+        if (debug == null) {
+            debug = debugDef;
+            changed = true;
+        }
+
+        return changed;
+    }
+
+    public void save() throws IOException {
+        String json = GSON.toJson(this);
+
+        try (BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), StandardCharsets.UTF_8))) {
+            writer.write("/*\n");
+            for (String line : COMMENT) writer.write(" * " + line + "\n");
+            writer.write(" */\n\n");
+            writer.write(json);
+        }
     }
 }

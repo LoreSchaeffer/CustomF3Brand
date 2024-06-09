@@ -4,7 +4,6 @@ import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import it.multicoredev.cf3b.Config;
 import it.multicoredev.mbcore.bungeecord.Text;
-import it.multicoredev.mclib.json.GsonHelper;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.event.PluginMessageEvent;
@@ -50,7 +49,6 @@ import java.io.IOException;
 public class CustomF3Brand extends Plugin implements Listener {
     public static final String BRAND = "minecraft:brand";
     private static final int PLUGIN_ID = 13360;
-    private static final GsonHelper GSON = new GsonHelper();
     private final Metrics metrics = new Metrics(this, PLUGIN_ID);
     private Config config;
     private BrandUpdater brandUpdater;
@@ -68,8 +66,15 @@ public class CustomF3Brand extends Plugin implements Listener {
         }
 
         try {
-            File configFile = new File(getDataFolder(), "config.json");
-            config = GSON.autoload(configFile, new Config().init(), Config.class);
+            File file = new File(getDataFolder(), "config.json5");
+            if (!file.exists() || !file.isFile()) {
+                config = new Config(file);
+                config.init();
+                config.save();
+            } else {
+                config = Config.load(file);
+                if (config.init()) config.save();
+            }
         } catch (IOException e) {
             getLogger().severe(ChatColor.RED + "Cannot load config file: " + e.getMessage());
             onDisable();
@@ -107,7 +112,7 @@ public class CustomF3Brand extends Plugin implements Listener {
 
     public static byte[] createData(String str) {
         ByteBuf brand = Unpooled.buffer();
-        DefinedPacket.writeString(Text.toLegacyAlternateColorCodes(str) + "§r", brand);
+        DefinedPacket.writeString(Text.toLegacyAlternateColorCodes(Text.toLegacyText(str)) + "§r", brand);
         byte[] data = DefinedPacket.toArray(brand);
         brand.release();
 

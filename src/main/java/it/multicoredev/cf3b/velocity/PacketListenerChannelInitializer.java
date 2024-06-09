@@ -30,7 +30,7 @@ public class PacketListenerChannelInitializer extends BackendChannelInitializer 
                 initMethod = channelInitializer.getClass().getDeclaredMethod("initChannel", Channel.class);
                 initMethod.setAccessible(true);
             } catch (NoSuchMethodException e) {
-                plugin.getLogger().error("Cannot find initChannel method in " + channelInitializer.getClass().getName());
+                plugin.getLogger().error("Cannot find initChannel method in {}", channelInitializer.getClass().getName());
             }
         }
     }
@@ -40,7 +40,7 @@ public class PacketListenerChannelInitializer extends BackendChannelInitializer 
         try {
             if (channelInitializer != null && initMethod != null) initMethod.invoke(channelInitializer, channel);
         } catch (Exception e) {
-            plugin.getLogger().error("Cannot invoke initChannel method: " + e.getMessage());
+            plugin.getLogger().error("Cannot invoke initChannel method: {}", e.getMessage());
         } finally {
             if (!channel.pipeline().toMap().containsKey("frame-decoder")) super.initChannel(channel);
             channel.pipeline().addLast("brand_packet_listener", new BrandPacketListener());

@@ -88,7 +88,7 @@ public class BrandUpdater {
         ByteBuf pds = (ByteBuf) getPacketDataSerializer();
         if (pds == null) return;
         writeString(pds, CustomF3Brand.BRAND);
-        writeString(pds, Text.toLegacyAlternateColorCodes(Text.toMiniMessage(str)) + "§r");
+        writeString(pds, Text.toLegacyAlternateColorCodes(Text.toLegacyText(Text.toMiniMessage(str))) + "§r");
 
         byte[] data = new byte[pds.readableBytes()];
         for (int i = 0; i < data.length; i++) data[i] = pds.getByte(i);
