@@ -46,7 +46,7 @@ public class ReloadCmd implements CommandExecutor {
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-        if (!sender.hasPermission("f3b.reload")) {
+        if (!sender.hasPermission("cf3.reload")) {
             Text.get().send("<red>You don't have permission to use this command!</red>", sender);
             return true;
         }

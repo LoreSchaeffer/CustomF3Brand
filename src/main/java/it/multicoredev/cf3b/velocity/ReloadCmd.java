@@ -20,6 +20,6 @@ public class ReloadCmd implements SimpleCommand {
 
     @Override
     public boolean hasPermission(Invocation invocation) {
-        return invocation.source().hasPermission("f3brand.reload");
+        return invocation.source().hasPermission("cf3.reload");
     }
 }

@@ -48,6 +48,7 @@ public class CustomF3Brand extends JavaPlugin {
     private Config config;
     public static boolean PAPI;
     private BrandUpdater brandUpdater;
+    private PluginTest pluginTest;
 
     @Override
     public void onEnable() {
@@ -102,12 +103,17 @@ public class CustomF3Brand extends JavaPlugin {
         if (brandUpdater.size() > 1) brandUpdater.start();
 
         if (config.debug) {
-            new PluginTest(this).init();
+            pluginTest = new PluginTest(this);
+            pluginTest.init();
         }
     }
 
     @Override
     public void onDisable() {
+        if (pluginTest != null) {
+            pluginTest.disable();
+        }
+
         brandUpdater.stop();
         Text.destroy();
     }

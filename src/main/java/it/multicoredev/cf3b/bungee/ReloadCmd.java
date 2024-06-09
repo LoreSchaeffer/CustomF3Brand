@@ -39,7 +39,7 @@ public class ReloadCmd extends Command {
     private final Plugin plugin;
 
     public ReloadCmd(Plugin plugin) {
-        super("bungeef3reload", "f3b.reload", "bf3reload", "bf3r");
+        super("bungeef3reload", "cf3.reload", "bf3reload", "bf3r");
         this.plugin = plugin;
     }
 

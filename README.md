@@ -27,7 +27,7 @@ That's it!
 - ```/vf3r``` to reload the config (velocity)
 
 ## Permissions
-- ```f3b.reload``` to reload the config
+- ```cf3.reload``` to reload the config
 
 ## Contributing
 To contribute to this repository just fork this repository make your changes or add your code and make a pull request.
