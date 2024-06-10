@@ -9,5 +9,6 @@ softdepend: [ 'PlaceholderAPI' ]
 
 commands:
   f3reload:
+    permission: 'cf3.reload'
     aliases: [ 'f3reload', 'f3r' ]
     description: Reload the config of the plugin

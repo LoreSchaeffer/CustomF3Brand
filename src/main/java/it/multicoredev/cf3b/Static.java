@@ -26,27 +26,15 @@
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package it.multicoredev.cf3b.bungee;
+package it.multicoredev.cf3b;
 
-import it.multicoredev.mbcore.bungeecord.Text;
-import net.md_5.bungee.api.CommandSender;
-import net.md_5.bungee.api.plugin.Command;
-import net.md_5.bungee.api.plugin.Plugin;
+public class Static {
+    public static final String BRAND = "minecraft:brand";
+    public static final int SPIGOT_PLUGIN_ID = 13359;
+    public static final int BUNGEECORD_PLUGIN_ID = 13360;
+    public static final int VELOCITY_PLUGIN_ID = 20959;
 
-public class ReloadCmd extends Command {
-    private final CustomF3Brand plugin;
-
-    public ReloadCmd(CustomF3Brand plugin) {
-        super("bungeef3reload", "cf3.reload", "bf3reload", "bf3r");
-        this.plugin = plugin;
-    }
-
-    @Override
-    public void execute(CommandSender sender, String[] args) {
-        plugin.onDisable();
-        plugin.onEnable();
-        plugin.brandUpdater().broadcast();
-
-        Text.get().send(plugin.config().reloadSuccess, sender);
+    private Static() {
+        throw new IllegalStateException("Utility class");
     }
 }
