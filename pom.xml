@@ -6,7 +6,7 @@
 
     <groupId>it.multicoredev.cf3b</groupId>
     <artifactId>CustomF3Brand</artifactId>
-    <version>1.2.1-SNAPSHOT</version>
+    <version>1.2.1</version>
 
     <name>CustomF3Brand</name>
     <description>Edit your server brand in debug screen</description>
