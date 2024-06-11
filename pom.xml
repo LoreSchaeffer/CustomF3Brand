@@ -6,7 +6,7 @@
 
     <groupId>it.multicoredev.cf3b</groupId>
     <artifactId>CustomF3Brand</artifactId>
-    <version>1.2.0</version>
+    <version>1.2.1</version>
 
     <name>CustomF3Brand</name>
     <description>Edit your server brand in debug screen</description>
@@ -14,10 +14,13 @@
     <inceptionYear>2021</inceptionYear>
 
     <properties>
-        <maven.compiler.target>16</maven.compiler.target>
-        <maven.compiler.source>16</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <maven.compiler.source>17</maven.compiler.source>
+
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+        <spigot.version>1.20.1-R0.1-SNAPSHOT</spigot.version>
     </properties>
 
     <organization>
@@ -72,7 +75,7 @@
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
-            <version>1.20.2-R0.1-SNAPSHOT</version>
+            <version>${spigot.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -117,11 +120,6 @@
             <artifactId>MBCore-velocity</artifactId>
             <version>8.0.1</version>
             <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>it.multicoredev.mclib</groupId>
-            <artifactId>MCLib-Configurations</artifactId>
-            <version>1.7.2.6</version>
         </dependency>
 
         <dependency>
@@ -179,21 +177,12 @@
                             <goal>shade</goal>
                         </goals>
                         <configuration>
-                            <finalName>CustomF3Brand</finalName>
                             <minimizeJar>false</minimizeJar>
                             <createDependencyReducedPom>false</createDependencyReducedPom>
                             <relocations>
                                 <relocation>
-                                    <pattern>it.multicoredev.mbcore</pattern>
-                                    <shadedPattern>it.multicoredev.cf3b.mbcore</shadedPattern>
-                                </relocation>
-                                <relocation>
-                                    <pattern>it.multicoredev.mclib</pattern>
-                                    <shadedPattern>it.multicoredev.cf3b.mclib</shadedPattern>
-                                </relocation>
-                                <relocation>
                                     <pattern>org.bstats</pattern>
-                                    <shadedPattern>it.multicoredev.cf3b.bstats</shadedPattern>
+                                    <shadedPattern>it.multicoredev.bstats</shadedPattern>
                                 </relocation>
                             </relocations>
                         </configuration>

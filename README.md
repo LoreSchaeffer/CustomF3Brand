@@ -13,7 +13,8 @@ it's easy and intuitive.
   - Velocity version is in alpha stage, please report any issue you find.
 
 ## Requirements
-- You need at least Java 16.
+- Minecraft 1.16+
+- Java 17+.
 - ProtocolLib is required for the Spigot version.
 
 ## Installation
@@ -27,7 +28,15 @@ That's it!
 - ```/vf3r``` to reload the config (velocity)
 
 ## Permissions
-- ```f3b.reload``` to reload the config
+- ```cf3.reload``` to reload the config
+
+## Warnings
+- Do not reload the plugin in a velocity server! If you want to reload the config use the command ```/vf3r```.
+- The configuration file is a JSON file with json5 extension. This is done to allow comments in the file but is parsed as a json. 
+When editing the file make sure to follow the json syntax.
+
+## Known issues
+- Some plugins and mods to communicate needs certain brand names and may not work properly with this plugin.
 
 ## Contributing
 To contribute to this repository just fork this repository make your changes or add your code and make a pull request.

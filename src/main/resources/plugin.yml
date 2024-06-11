@@ -1,7 +1,7 @@
 name: CustomF3Brand
 version: '${project.version}'
 main: it.multicoredev.cf3b.bukkit.CustomF3Brand
-api-version: 1.13
+api-version: 1.20
 author: LoreSchaeffer
 description: Edit your server brand in debug screen
 depend: [ 'ProtocolLib' ]
@@ -9,5 +9,6 @@ softdepend: [ 'PlaceholderAPI' ]
 
 commands:
   f3reload:
+    permission: 'cf3.reload'
     aliases: [ 'f3reload', 'f3r' ]
     description: Reload the config of the plugin
